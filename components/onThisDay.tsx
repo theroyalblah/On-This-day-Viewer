@@ -14,7 +14,13 @@ const OnThisDay = (data: OnThisDayProps) => {
       <>
         <h2> Selected </h2>
         {selected.map((element, i) => {
-          return <h3 key={i}>{element.text}</h3>;
+          return (
+            <h3 key={i}>
+              <a href={element.pages[0].content_urls.desktop.page}>
+                {element.text}
+              </a>
+            </h3>
+          );
         })}
       </>
     );

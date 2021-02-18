@@ -1,6 +1,20 @@
+export type wikiPageContent = {
+  type: string;
+  title: string;
+  displaytitle: string;
+  content_urls: {
+    desktop: {
+      page: string;
+    };
+    mobile: {
+      page: string;
+    };
+  };
+};
+
 export type wikiContent = {
   text: string;
-  pages: any;
+  pages: Array<wikiPageContent>;
   year: number;
 };
 

@@ -9,15 +9,14 @@ const Index = () => {
   const router = useRouter();
 
   const goToDatePage = (selectedDate: Date | Date[]) => {
-    console.log(selectedDate.toString());
     const stringDate = selectedDate.toString();
     router.push(`date?selected=${stringDate}`);
   };
 
   return (
     <>
+      <h1>Select a day on the calendar to view what happened on that day in history</h1>
       <Calendar value={value} onChange={goToDatePage} />
-      <h1>Hello Next.js 👋</h1>
     </>
   );
 };
