@@ -1,4 +1,6 @@
 import * as React from "react";
+import OnThisDay from '../components/onThisDay';
+import { wikiResponse } from '../types/wikitypes';
 
 type QueryType = {
   query: {
@@ -8,19 +10,20 @@ type QueryType = {
 
 export const getServerSideProps = async ({ query }: QueryType) => {
   const dateString: string = query?.selected ?? "";
-  const selectedDate = new Date(dateString);
-
+  const date = new Date(dateString);
   let onThisDayResponse;
-  const day = selectedDate.getDay();
-  const month = selectedDate.getMonth();
+
+  const day = date.getDate();
+
+  // Someone thought it would be funny to zero index months but not days
+  // so 1 needs to be added here to make any sense.
+  const month = date.getMonth() + 1;
 
   await fetch(
     `https://en.wikipedia.org/api/rest_v1/feed/onthisday/all/${month}/${day}`
   )
     .then((response) => response.json())
     .then((data) => (onThisDayResponse = data));
-
-  console.log(onThisDayResponse);
 
   return {
     props: {
@@ -32,15 +35,14 @@ export const getServerSideProps = async ({ query }: QueryType) => {
 
 interface CalendarDateProps {
   dateString: string;
+  onThisDayResponse: wikiResponse;
 }
 
 const CalendarDate = (props: CalendarDateProps) => {
   return (
     <>
       <h1>Welcome to {props.dateString}</h1>
-      <div>
-        {props.onThisDayResponse.selected[0].text}
-      </div>
+      <OnThisDay response={props.onThisDayResponse} />
     </>
   );
 };
