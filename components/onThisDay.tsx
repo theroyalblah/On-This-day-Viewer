@@ -1,6 +1,12 @@
 import * as React from "react";
 import { wikiResponse } from "../types/wikitypes";
 import Collapsible from "react-collapsible";
+import styled from "styled-components";
+
+const BirthsHeader = styled.div`
+  background-color: cornflowerblue;
+  width: 30%;
+`;
 
 interface OnThisDayProps {
   response: wikiResponse;
@@ -24,18 +30,19 @@ const OnThisDay = (data: OnThisDayProps) => {
             </h3>
           );
         })}
-        <h2>Births</h2>
-        <Collapsible trigger="ᐯ">
-          {births.map((element, i) => {
-            return (
-              <div key={i}>
-                <a href={element.pages[0].content_urls.desktop.page}>
-                  {element.text}
-                </a>
-              </div>
-            );
-          })}
-        </Collapsible>
+        <BirthsHeader>
+          <Collapsible trigger="Births">
+            {births.map((element, i) => {
+              return (
+                <div key={i}>
+                  <a href={element.pages[0].content_urls.desktop.page}>
+                    {element.text}
+                  </a>
+                </div>
+              );
+            })}
+          </Collapsible>
+        </BirthsHeader>
       </>
     );
   } else {
